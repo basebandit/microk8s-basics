@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-deployment
+  labels: # additional identifier(s) for k8s resource(s). For "Deployment" it is optional
+    app: webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp
+  template: # configuration for pod(s) within a deployment
+    metadata:
+      labels:  # additional identifier(s) for k8s resource(s). For "template" (pods) it is required
+        app: webapp
+    spec:
+      containers: # container image(s)
+        - name: webapp
+          image: nanajanashia/k8s-demo-app:v1.0
+          ports:
+            - containerPort: 3000
+--- # separate our yaml configuration [enables us to have multiple yaml configs in one file] below is our "Service" configuration
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-service # an arbitrary name
+spec:
+  selector: # select pods to forward the requests to
+    app.kubernetes.io/name: webapp
+  ports:
+    - protocol: TCP
+      port: 3000 # service port
+      targetPort: 3000 # containerPort of "Deployment"
+
