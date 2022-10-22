@@ -41,10 +41,12 @@ kind: Service
 metadata:
   name: webapp-service # an arbitrary name
 spec:
+  type: NodePort # External service type
   selector: # select pods to forward the requests to
     app.kubernetes.io/name: webapp
   ports:
     - protocol: TCP
       port: 3000 # service port
       targetPort: 3000 # containerPort of "Deployment"
+      nodePort: 30100 # exposes the service on each Node's IP at static port (must be btwn 30000 - 32767)
 
