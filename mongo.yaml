@@ -26,10 +26,10 @@ spec:
                   name: mongo-secret
                   key: mongo-user
             - name: MONGO_INITDB_ROOT_PASSWORD
-                valueFrom: # reference value from the secret
-                  secretKeyRef:
-                    name: mongo-secret
-                    key: mongo-password
+              valueFrom: # reference value from the secret
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-password
 --- # separate our yaml configuration [enables us to have multiple yaml configs in one file] below is our "Service" configuration
 apiVersion: v1
 kind: Service
