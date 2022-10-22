@@ -19,3 +19,16 @@ spec:
           image: mongo:5.0
           ports:
             - containerPort: 27017
+--- # separate our yaml configuration [enables us to have multiple yaml configs in one file] below is our "Service" configuration
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service # an arbitrary name
+spec:
+  selector: # select pods to forward the requests to
+    app.kubernetes.io/name: mongo
+  ports:
+    - protocol: TCP
+      port: 27017 # service port
+      targetPort: 27017 # containerPort of "Deployment"
+
