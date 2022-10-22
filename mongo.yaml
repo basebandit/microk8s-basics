@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-deployment
+  labels: # additional identifier(s) for k8s resource(s). For "Deployment" it is optional
+    app: mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  template: # configuration for pod(s) within a deployment
+    metadata:
+      labels:  # additional identifier(s) for k8s resource(s). For "template" (pods) it is required
+        app: mongo
+    spec:
+      containers: # container image(s)
+        - name: mongodb
+          image: mongo:5.0
+          ports:
+            - containerPort: 27017
