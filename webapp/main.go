@@ -11,6 +11,10 @@ import (
 )
 
 func main() {
+	if len(os.Args) < 2 {
+		fmt.Println("Missing port argument e.g. 8080")
+		os.Exit(1)
+	}
 	port := os.Args[1]
 	l, close := httpListener(fmt.Sprintf(":%v", port))
 	defer close()
