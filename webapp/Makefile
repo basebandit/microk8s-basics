@@ -8,4 +8,5 @@ run:
 	@docker run --name ${DOCKER_CONTAINER_NAME} -p 8080:8080 -d ${TAG_NAME}
 stop:
 	@docker stop ${DOCKER_CONTAINER_NAME}; docker rm ${DOCKER_CONTAINER_NAME}
-
+push:
+	@docker push mrparish/basebandit-webapp
