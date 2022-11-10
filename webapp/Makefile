@@ -1,9 +1,11 @@
-ROOT := $(pwd)
-DOCKER_REPOSITORY := basebandit-webapp
-DOCKER_IMAGE_NAME := basebandit-webapp:latest
-DOCKER_IMAGE_TAG := basebandit-webapp:v1.0
+DOCKER_CONTAINER_NAME := webapp
+DOCKER_IMAGE_NAME := basebandit-webapp
+TAG_NAME := mrparish/${DOCKER_IMAGE_NAME}
 
 build:
-	docker build --tag ${DOCKER_IMAGE_NAME} -t ${DOCKER_IMAGE_TAG} ${PWD}
+	@docker build -t ${DOCKER_IMAGE_NAME} .; docker tag ${DOCKER_IMAGE_NAME} ${TAG_NAME}
 run:
-	docker run -p 8080:8080 ${DOCKER_REPOSITORY}
+	@docker run --name ${DOCKER_CONTAINER_NAME} -p 8080:8080 -d ${TAG_NAME}
+stop:
+	@docker stop ${DOCKER_CONTAINER_NAME}; docker rm ${DOCKER_CONTAINER_NAME}
+
